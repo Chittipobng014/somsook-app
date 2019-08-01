@@ -40,7 +40,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs12 md4>
+      <v-flex xs12 sm6 md4>
         <v-card height="100%">
           <v-card-title primary-title>เพิ่มสัญญา / ดราฟ</v-card-title>
           <v-card-text>
@@ -55,7 +55,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 md4 v-for="p in purchases" :key="p.id">
+      <v-flex xs12 sm6 md4 v-for="p in purchases" :key="p.id">
         <v-card>
           <v-card-title primary-title>{{p.type}}</v-card-title>
           <v-card-text>
@@ -115,7 +115,7 @@ export default class EditBankAccount extends Vue {
     memberId: ""
   };
 
-  async fetchBankAccount() {
+  private async fetchBankAccount() {
     this.$store.commit(`setLoading`, true);
     this.bankAccount = await bankAccountService.getById(this.$route.params.id);
     await this.fetchPurchases();
@@ -123,34 +123,34 @@ export default class EditBankAccount extends Vue {
     this.$store.commit(`setLoading`, false);
   }
 
-  async fetchPurchases() {
+  private async fetchPurchases() {
     this.purchases = await purchaseService.getByBankAccountId(<string>(
       this.bankAccount.id
     ));
   }
 
-  back() {
+  private back() {
     this.$router.back();
   }
 
-  async save() {
+  private async save() {
     this.$store.commit(`setLoading`, true);
     const updated = await bankAccountService.update(this.bankAccount);
     await this.fetchBankAccount();
     this.$store.commit(`setLoading`, false);
   }
 
-  deletePurchase(purchase: Purchase) {
+  private deletePurchase(purchase: Purchase) {
     this.selectedDeletePurchase = purchase;
     this.showDeletePurchase = true;
   }
 
-  async mounted() {
+  private async mounted() {
     await this.fetchBankAccount();
   }
 
   @Emit(`close`)
-  close() {}
+  private close() {}
 }
 </script>
 

@@ -104,7 +104,7 @@ export default class AddMember extends Vue {
     return `${this.prefixName}${this.firstname} ${this.lastname}`;
   }
 
-  async createMember() {
+  private async createMember() {
     this.$store.commit(`setLoading`, true);
     if (this.ExistedValidate()) {
       this.$store.commit(`setLoading`, false);
@@ -122,10 +122,10 @@ export default class AddMember extends Vue {
     }
   }
 
-  async ExistedValidate() {
-    const nameExisted = this.members.filter(m => m.name == this.name);
+  private async ExistedValidate() {
+    const nameExisted = this.members.filter(m => m.name === this.name);
     const citizenIdExisted = this.members.filter(
-      m => m.citizenId == this.citizenId
+      m => m.citizenId === this.citizenId
     );
     if (nameExisted.length > 0 || citizenIdExisted.length > 0) {
       return true;
@@ -137,7 +137,7 @@ export default class AddMember extends Vue {
     return this.$store.state.members;
   }
 
-  clear() {
+  private clear() {
     this.firstname = "";
     this.lastname = "";
     this.citizenId = "";
@@ -146,12 +146,12 @@ export default class AddMember extends Vue {
   }
 
   @Emit(`close`)
-  close() {
+  private close() {
     this.clear();
   }
 
   @Emit(`created`)
-  memberCreated() {
+  private memberCreated() {
     this.close();
   }
 }

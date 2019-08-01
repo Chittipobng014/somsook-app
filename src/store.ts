@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { auth } from './plugins/firebase';
 import { membersCollection } from "./modules/db";
+import createPersistedState from 'vuex-persistedstate'
+// import Cookies from 'js-cookie';
 
 Vue.use(Vuex);
 
@@ -19,6 +21,7 @@ const store = new Vuex.Store({
     currentMember: {},
     currentBankAccount: {}
   },
+  plugins: [createPersistedState()],
   mutations: {
     setLoading(state, val) {
       state.loading = val

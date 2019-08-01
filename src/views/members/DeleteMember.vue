@@ -33,10 +33,10 @@ export default class DeleteMember extends Vue {
   }
 
   @Emit(`close`)
-  close() {}
+  private close() {}
 
   @Emit(`deleted`)
-  memberDeleted() {
+  private memberDeleted() {
     this.close();
   }
 }

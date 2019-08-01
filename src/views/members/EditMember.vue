@@ -33,11 +33,11 @@
       </v-flex>
     </v-layout>
     <hr />
-    <v-layout row wrap>
+    <v-layout row wrap mb-5>
       <v-flex xs12 md12 text-md-center>
         <h1>ข้อมูลสมุดบัญชี</h1>
       </v-flex>
-      <v-flex xs12 md3>
+      <v-flex xs12 sm6 md3>
         <v-card hover light height="100%">
           <v-card-title primary-title>เพิ่มข้อมูลสมุดบัญชี</v-card-title>
           <v-card-text>
@@ -52,7 +52,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-      <v-flex xs12 md3 v-for="acc in bankAccounts" :key="acc.id">
+      <v-flex xs12 sm6 md3 v-for="acc in bankAccounts" :key="acc.id">
         <v-card hover light>
           <v-card-title primary-title>{{acc.provider}}</v-card-title>
           <v-card-text>
@@ -68,11 +68,11 @@
       </v-flex>
     </v-layout>
     <hr />
-    <v-layout row wrap>
+    <v-layout row wrap mb-5>
       <v-flex xs12 md12 text-md-center>
         <h1>ข้อมูลสัญญา/ดราฟ</h1>
       </v-flex>
-      <v-flex xs12 md3 v-for="p in purchases" :key="p.id">
+      <v-flex xs12 sm6 md3 v-for="p in purchases" :key="p.id">
         <v-card light hover>
           <v-card-title primary-title>{{p.type}}</v-card-title>
           <v-card-text>
@@ -83,7 +83,8 @@
       </v-flex>
     </v-layout>
 
-    <v-layout row wrap text-md-right text-xs-right mt-8>
+    <hr />
+    <v-layout row wrap text-md-right text-right text-sm-right mt-8>
       <v-flex xs12 md12>
         <v-btn style="margin-right: 5px" color="success" @click="save()">แก้ไข</v-btn>
         <v-btn color="error" @click="back()">กลับ</v-btn>
@@ -167,11 +168,11 @@ export default class EditMember extends Vue {
     this.$router.push(`/bankAccount/${id}`);
   }
 
-  back() {
+  private back() {
     this.$router.back();
   }
 
-  async save() {
+  private async save() {
     this.$store.commit(`setLoading`, true);
     this.member.name = this.fullname;
     const updated = await memberService.update(this.member);

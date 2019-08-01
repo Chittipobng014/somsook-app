@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" persistent max-width="500px" transition="dialog-transition">
     <v-card>
-      <v-card-title primary-title>เพิ่มสมุดบัญชี</v-card-title>
+      <v-card-title primary-title>เพิ่มสัญญา/ดราฟ</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid" :lazy-validation="lazy">
           <v-layout row wrap>
@@ -31,7 +31,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" outlined @click="createBankAccount()">เพิ่มสมุดบัญชี</v-btn>
+        <v-btn color="success" outlined @click="createBankAccount()">เพิ่มสัญญา/ดราฟ</v-btn>
         <v-btn color="error" outlined @click="close()">ยกเลิก</v-btn>
       </v-card-actions>
     </v-card>
