@@ -1,6 +1,11 @@
 import { Timestamp } from "../plugins/firebase";
 
 export class Member {
+
+    static register(citizenID: string, name: string, phoneNumber: string, address: string) {
+        return new Member(citizenID, name, phoneNumber, address)
+    }
+
     id?: string;
 
     citizenId!: string;
@@ -20,9 +25,5 @@ export class Member {
         this.address = address
         this.id = id
         this.createAt = new Date()
-    }
-
-    public static register(citizenID: string, name: string, phoneNumber: string, address: string) {
-        return new Member(citizenID, name, phoneNumber, address)
     }
 }

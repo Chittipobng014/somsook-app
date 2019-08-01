@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" persistent max-width="500px" transition="dialog-transition">
     <v-card>
-      <v-card-title primary-title>เพิ่มสัญญา/ดราฟ</v-card-title>
+      <v-card-title primary-title>เพิ่มสัญญา / ดราฟ</v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="valid" :lazy-validation="lazy">
           <v-layout row wrap>
@@ -56,15 +56,21 @@ export default class AddPurchase extends Vue {
     type: `ดราฟ` || `สัญญา`,
     name: "",
     amount: "",
-    bankAccountId: this.bankAccountId,
-    memberId: this.memberId
+    bankAccountId: "",
+    memberId: ""
   };
 
   @Emit(`created`)
   async createBankAccount() {
-    // console.log(JSON.stringify(this.purchase.bankAccountId));
     this.$store.commit(`setLoading`, true);
-    const newPurchase = await purchaseService.create(this.purchase);
+    const newPurchase = await purchaseService.create({
+      id: undefined,
+      type: this.purchase.type,
+      name: this.purchase.name,
+      amount: this.purchase.amount,
+      bankAccountId: this.bankAccountId,
+      memberId: this.memberId
+    });
     this.$store.commit(`setLoading`, false);
     this.close();
   }

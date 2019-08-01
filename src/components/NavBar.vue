@@ -33,7 +33,7 @@ export default class NavBar extends Vue {
     this.$router.push(`/login`);
   }
 
-  toMembersPage() {
+  private toMembersPage() {
     this.$router.push(`/members`);
   }
 
