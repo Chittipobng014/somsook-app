@@ -106,7 +106,7 @@ export default class AddMember extends Vue {
 
   private async createMember() {
     this.$store.commit(`setLoading`, true);
-    if (this.ExistedValidate()) {
+    if (await this.ExistedValidate()) {
       this.$store.commit(`setLoading`, false);
       this.showError = true;
     } else {
@@ -116,7 +116,7 @@ export default class AddMember extends Vue {
         this.phoneNumber,
         this.address
       );
-      // const newMember = await memberService.create(member);
+      const newMember = await memberService.create(member);
       this.$store.commit(`setLoading`, false);
       this.memberCreated();
     }

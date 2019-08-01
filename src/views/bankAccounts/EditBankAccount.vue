@@ -41,7 +41,7 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 sm6 md4>
-        <v-card height="100%">
+        <v-card height="100%" light>
           <v-card-title primary-title>เพิ่มสัญญา / ดราฟ</v-card-title>
           <v-card-text>
             <p>- สัญญา</p>
@@ -56,7 +56,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12 sm6 md4 v-for="p in purchases" :key="p.id">
-        <v-card>
+        <v-card light>
           <v-card-title primary-title>{{p.type}}</v-card-title>
           <v-card-text>
             <p>ชื่อ: {{p.name}}</p>
