@@ -16,10 +16,13 @@
       <v-flex xs12 md12 text-md-center>
         <h1>ข้อมูลสมาชิก</h1>
       </v-flex>
-      <v-flex xs12 md6>
+      <v-flex xs12 md2>
+        <v-text-field outlined label="รหัสสมาชิก" v-model="member.id" disabled></v-text-field>
+      </v-flex>
+      <v-flex xs12 md5>
         <v-text-field outlined label="ชื่อ" v-model="firstname"></v-text-field>
       </v-flex>
-      <v-flex xs12 md6>
+      <v-flex xs12 md5>
         <v-text-field outlined label="สกุล" v-model="lastname"></v-text-field>
       </v-flex>
       <v-flex xs12 md6>

@@ -24,6 +24,7 @@
         <v-simple-table dark>
           <thead>
             <tr>
+              <th class="table-header">รหัสสมาชิก</th>
               <th class="table-header">ชื่อ - สกุล</th>
               <th class="table-header">โทรศัพท์</th>
               <th class="text-right">
@@ -33,6 +34,7 @@
           </thead>
           <tbody>
             <tr v-for="member in filteredMembers" :key="member.id">
+              <td class="table-text">{{ member.id }}</td>
               <td class="table-text">{{ member.name }}</td>
               <td class="table-text">{{ member.phoneNumber }}</td>
               <td class="text-right">
