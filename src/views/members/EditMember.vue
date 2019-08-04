@@ -19,11 +19,8 @@
       <v-flex xs12 md2>
         <v-text-field outlined label="รหัสสมาชิก" v-model="member.id" disabled></v-text-field>
       </v-flex>
-      <v-flex xs12 md5>
-        <v-text-field outlined label="ชื่อ" v-model="firstname"></v-text-field>
-      </v-flex>
-      <v-flex xs12 md5>
-        <v-text-field outlined label="สกุล" v-model="lastname"></v-text-field>
+      <v-flex xs12 md10>
+        <v-text-field outlined label="ชื่อ - สกุล" v-model="member.name"></v-text-field>
       </v-flex>
       <v-flex xs12 md6>
         <v-text-field outlined label="เลขบัตรประชาชน" v-model="member.citizenId"></v-text-field>
@@ -140,9 +137,8 @@ export default class EditMember extends Vue {
     this.$store.commit(`setLoading`, true);
     await this.fetchMembers();
     await Promise.all([this.fetchPurcases(), this.fetchBankAccounts()]);
-    this.firstname = this.member.name.split(` `)[0];
-    this.lastname = this.member.name.split(` `)[1];
     this.$store.commit(`setLoading`, false);
+    console.log(this.member.name);
   }
 
   private async fetchPurcases() {
@@ -153,6 +149,8 @@ export default class EditMember extends Vue {
 
   private async fetchMembers() {
     this.member = await memberService.getById(this.$route.params.id);
+    this.firstname = this.member.name.split(` `)[0];
+    this.lastname = this.member.name.split(` `)[1];
     this.$store.commit(`setCurrentMember`, this.member);
   }
 

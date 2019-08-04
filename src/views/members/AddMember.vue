@@ -7,22 +7,13 @@
           <v-flex xs12 md2>
             <v-select outlined :items="prefixs" v-model="prefixName" label="คำนำหน้า"></v-select>
           </v-flex>
-          <v-flex xs12 md5>
+          <v-flex xs12 md10>
             <v-text-field
               outlined
-              v-model="firstname"
+              v-model="name"
               required
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
-              label="ชื่อ"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs12 md5>
-            <v-text-field
-              outlined
-              v-model="lastname"
-              required
-              :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
-              label="สกุล"
+              label="ชื่อ - สกุล"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md6>
@@ -84,9 +75,7 @@ export default class AddMember extends Vue {
   @Prop()
   private show!: boolean;
 
-  private firstname: string = "";
-
-  private lastname: string = "";
+  private name: string = "";
 
   private prefixName: string = "";
 
@@ -99,10 +88,6 @@ export default class AddMember extends Vue {
   private showError: boolean = false;
 
   private prefixs: string[] = [`นาย`, `นาง`, `นางสาว`, `เด็กชาย`, `เด็กหญิง`];
-
-  private get name(): string {
-    return `${this.prefixName}${this.firstname} ${this.lastname}`;
-  }
 
   private async createMember() {
     this.$store.commit(`setLoading`, true);
@@ -138,8 +123,7 @@ export default class AddMember extends Vue {
   }
 
   private clear() {
-    this.firstname = "";
-    this.lastname = "";
+    this.name = "";
     this.citizenId = "";
     this.phoneNumber = "";
     this.address = "";
