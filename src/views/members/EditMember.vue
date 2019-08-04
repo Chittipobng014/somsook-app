@@ -119,8 +119,7 @@ export default class EditMember extends Vue {
     createAt: new Date(),
     address: ""
   };
-  private firstname: string = "";
-  private lastname: string = "";
+
   private bankAccounts: any = null;
   private showAddBankAccount: boolean = false;
   private showDeleteBankAccount: boolean = false;
@@ -149,8 +148,6 @@ export default class EditMember extends Vue {
 
   private async fetchMembers() {
     this.member = await memberService.getById(this.$route.params.id);
-    this.firstname = this.member.name.split(` `)[0];
-    this.lastname = this.member.name.split(` `)[1];
     this.$store.commit(`setCurrentMember`, this.member);
   }
 
