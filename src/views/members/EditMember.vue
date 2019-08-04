@@ -175,14 +175,9 @@ export default class EditMember extends Vue {
 
   private async save() {
     this.$store.commit(`setLoading`, true);
-    this.member.name = this.fullname;
     const updated = await memberService.update(this.member);
     this.fetchMembers();
     this.$store.commit(`setLoading`, false);
-  }
-
-  get fullname() {
-    return `${this.firstname} ${this.lastname}`;
   }
 }
 </script>
