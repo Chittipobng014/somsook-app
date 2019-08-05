@@ -3,17 +3,19 @@ export class SubPurchase {
 
     type!: `item` | `money`
 
-    deposit!: number
+    deposit!: number | null
 
-    reward!: number
+    reward!: number | null
 
-    item!: string
+    item!: string | null
 
-    itemAmount!: string
+    itemAmount!: string | null
 
     memberId!: string
 
     purchaseId!: string
 
     bankAccountId!: string
+
+    createAt!: number
 }

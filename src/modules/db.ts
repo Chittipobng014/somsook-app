@@ -3,7 +3,7 @@ import { db } from "../plugins/firebase";
 const MEMBERS_COLLECTION = `members`
 const BANK_ACCOUNT_COLLECTION = `bankAccount`
 const PURCHASE_COLLECTION = `purchase`
-const SUB_PURCHASE_COLLECTION = `purchase`
+const SUB_PURCHASE_COLLECTION = `subPurchases`
 const ID_GENERATE = `idGenerate`
 
 const membersCollection = db.collection(MEMBERS_COLLECTION)

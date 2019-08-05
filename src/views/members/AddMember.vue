@@ -95,6 +95,7 @@ export default class AddMember extends Vue {
       this.$store.commit(`setLoading`, false);
       this.showError = true;
     } else {
+      this.name = `${this.prefixName}${this.name}`
       const member: Member = Member.register(
         this.citizenId,
         this.name,

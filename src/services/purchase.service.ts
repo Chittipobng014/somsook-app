@@ -40,6 +40,21 @@ class PurchaseService {
         return purchases
     }
 
+    async getById(id: string) {
+        const querySnapshot = await purchaseCollection.doc(id).get()
+        const doc = <Purchase>querySnapshot.data()
+        const purchase: Purchase = {
+            amount: doc.amount,
+            bankAccountId: doc.bankAccountId,
+            id: querySnapshot.id,
+            memberId: doc.memberId,
+            name: doc.name,
+            type: doc.type
+        }
+        console.log(`Fetch purchase with id: ${id}`)
+        return purchase
+    }
+
     async create(purchase: Purchase) {
         const newPurchase = await purchaseCollection.add({
             type: purchase.type,

@@ -64,7 +64,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="warning" outlined>แก้ไข</v-btn>
+            <v-btn color="warning" outlined @click="toEditPurchase(p.id)">แก้ไข</v-btn>
             <v-btn color="error" outlined @click="deletePurchase(p)">ลบ</v-btn>
           </v-card-actions>
         </v-card>
@@ -143,6 +143,10 @@ export default class EditBankAccount extends Vue {
   private deletePurchase(purchase: Purchase) {
     this.selectedDeletePurchase = purchase;
     this.showDeletePurchase = true;
+  }
+
+  private toEditPurchase(id: string) {
+    this.$router.push(`/purchase/${id}`);
   }
 
   private async mounted() {

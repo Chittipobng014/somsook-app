@@ -19,7 +19,8 @@ const store = new Vuex.Store({
     currentUser: null,
     members: [],
     currentMember: {},
-    currentBankAccount: {}
+    currentBankAccount: {},
+    currentPurchase: {}
   },
   plugins: [createPersistedState()],
   mutations: {
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
     },
     setCurrentBankAccount(state, val) {
       state.currentBankAccount = val
+    },
+    setCurrentPurchase(state, val) {
+      state.currentPurchase = val
     }
   },
   actions: {

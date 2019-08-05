@@ -86,6 +86,12 @@
     <hr />
     <v-layout row wrap text-md-right text-right text-sm-right mt-8>
       <v-flex xs12 md12>
+        <v-btn
+          style="margin-right: 5px"
+          color="info"
+          outlined
+          @click="toReport(member.id)"
+        >สรุปข้อมูล</v-btn>
         <v-btn style="margin-right: 5px" color="success" @click="save()">แก้ไข</v-btn>
         <v-btn color="error" @click="back()">กลับ</v-btn>
       </v-flex>
@@ -175,6 +181,10 @@ export default class EditMember extends Vue {
     const updated = await memberService.update(this.member);
     this.fetchMembers();
     this.$store.commit(`setLoading`, false);
+  }
+
+  private toReport(id: string) {
+    this.$router.push(`/report/summary/${id}`);
   }
 }
 </script>

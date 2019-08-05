@@ -6,6 +6,8 @@ import MemberList from './views/members/MemberList.vue';
 import EditMember from "./views/members/EditMember.vue";
 import Login from './views/Login.vue';
 import EditBankAccount from "./views/bankAccounts/EditBankAccount.vue";
+import MemberSummary from "./views/reports/MemberSummary.vue";
+import EditPurchase from "./views/purchases/EditPurchase.vue";
 
 Vue.use(Router);
 
@@ -41,6 +43,22 @@ const router = new Router({
       path: '/bankAccount/:id',
       name: 'bankAccount',
       component: EditBankAccount,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/report/summary/:id',
+      name: 'report',
+      component: MemberSummary,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/purchase/:id',
+      name: 'purchase',
+      component: EditPurchase,
       meta: {
         requiresAuth: true
       }

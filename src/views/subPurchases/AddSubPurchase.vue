@@ -1,14 +1,19 @@
 <template>
   <v-dialog v-model="show" persistent max-width="500px" transition="dialog-transition">
     <v-card>
-      <v-card-title primary-title>เพิ่มสมุดบัญชี</v-card-title>
+      <v-card-title primary-title>เพิ่มโปร / หุ้น</v-card-title>
       <v-card-text>
         <v-layout row wrap>
+          <v-flex xs12 md12 sm12 xl12>
+            <v-select outlined :items="[`item`,`money`]" v-model="subPurchase.type"></v-select>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap v-if="subPurchase.type == 'money'">
           <v-flex xs12 md6>
             <v-text-field
               outlined
-              label="ธนาคาร"
-              v-model="bankAccount.provider"
+              label="จำนวนลงทุน"
+              v-model="subPurchase.deposit"
               required
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
             ></v-text-field>
@@ -16,17 +21,38 @@
           <v-flex xs12 md6>
             <v-text-field
               outlined
-              label="สาขา"
-              v-model="bankAccount.campus"
+              label="ผลตอบแทน"
+              v-model="subPurchase.reward"
               required
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
             ></v-text-field>
           </v-flex>
-          <v-flex xs12 md12>
+        </v-layout>
+
+        <v-layout row wrap v-if="subPurchase.type == 'item'">
+          <v-flex xs12 md5>
             <v-text-field
               outlined
-              label="เลขบัญชี"
-              v-model="bankAccount.number"
+              label="จำนวนลงทุน"
+              v-model="subPurchase.deposit"
+              required
+              :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md5>
+            <v-text-field
+              outlined
+              label="ผลตอบแทน"
+              v-model="subPurchase.item"
+              required
+              :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md2>
+            <v-text-field
+              outlined
+              label="จำนวน"
+              v-model="subPurchase.itemAmount"
               required
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
             ></v-text-field>
@@ -35,7 +61,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" outlined @click="createBankAccount()">เพิ่มสมุดบัญชี</v-btn>
+        <v-btn color="success" outlined @click="addSubPurchase()">เพิ่มโปร / หุ้น</v-btn>
         <v-btn color="error" outlined @click="close()">ยกเลิก</v-btn>
       </v-card-actions>
     </v-card>
@@ -45,31 +71,54 @@
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from "vue-property-decorator";
 import { SubPurchase } from "../../models/SubPurchase";
+import { subPurchaseService } from "../../services/subPurchase.service";
 @Component
 export default class AddBankAccount extends Vue {
-  //   @Prop()
-  //   private show!: boolean;
-  //   @Prop()
-  //   private memberId!: string;
-  //   private subPurchase: SubPurchase = {
-  //     deposit: 0,
-  //     memberId: this.memberId,
-  //     purchaseId: this.p
-  //     id: undefined
-  //   };
-  //   mounted() {
-  //     this.bankAccount.memberId = this.memberId;
-  //   }
-  //   clear() {
-  //     this.bankAccount.number = "";
-  //     this.bankAccount.campus = "";
-  //     this.bankAccount.provider = "";
-  //     this.bankAccount.memberId = this.memberId;
-  //   }
-  //   @Emit(`close`)
-  //   close() {
-  //     this.clear();
-  //   }
+  @Prop()
+  private show!: boolean;
+  private subPurchase: SubPurchase = {
+    id: undefined,
+    type: "item",
+    deposit: 0,
+    reward: 0,
+    item: "",
+    itemAmount: "",
+    memberId: "",
+    purchaseId: "",
+    bankAccountId: "",
+    createAt: Date.now()
+  };
+  private type: string = "เลือก";
+
+  @Emit(`added`)
+  private async addSubPurchase() {
+    this.subPurchase.memberId = this.memberId;
+    this.subPurchase.bankAccountId = this.bankAccountId;
+    this.subPurchase.purchaseId = this.purchaseId;
+    this.subPurchase.createAt = Date.now();
+    await subPurchaseService.create(this.subPurchase);
+    this.close();
+  }
+
+  clear() {
+    this.subPurchase = new SubPurchase();
+  }
+  @Emit(`close`)
+  close() {
+    this.clear();
+  }
+
+  get bankAccountId() {
+    return this.$store.state.currentBankAccount.id;
+  }
+
+  get memberId() {
+    return this.$store.state.currentMember.id;
+  }
+
+  get purchaseId() {
+    return this.$store.state.currentPurchase.id;
+  }
 }
 </script>
 

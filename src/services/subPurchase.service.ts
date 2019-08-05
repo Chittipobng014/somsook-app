@@ -20,6 +20,7 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
+                createAt: doc.data().createAt
             })
         })
         console.log(`Fetch all purchases of bank account id: ${id}`)
@@ -40,6 +41,7 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
+                createAt: doc.data().createAt
             })
         })
         console.log(`Fetch all purchases of member id: ${id}`)
@@ -60,9 +62,10 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
+                createAt: doc.data().createAt
             })
         })
-        console.log(`Fetch all purchases of purchase id: ${id}`)
+        console.log(`Fetch all sub purchases of purchase id: ${id}`)
         return subPurchases
     }
 
@@ -75,7 +78,8 @@ class SubPurchaseService {
             bankAccountId: subPurchase.bankAccountId,
             purchaseId: subPurchase.purchaseId,
             reward: subPurchase.reward,
-            itemAmount: subPurchase.itemAmount
+            itemAmount: subPurchase.itemAmount,
+            createAt: subPurchase.createAt
         })
         console.log(`Create new purchases with data \n\r${JSON.stringify(subPurchase, null, 2)}`)
         return newSubPurchase
