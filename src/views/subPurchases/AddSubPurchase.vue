@@ -9,6 +9,15 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap v-if="subPurchase.type == 'money'">
+          <v-flex xs12 md12 sm12 xl12>
+            <v-text-field
+              label="ชื่อโปร / หุ้น"
+              v-model="subPurchase.name"
+              outlined
+              required
+              :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
+            ></v-text-field>
+          </v-flex>
           <v-flex xs12 md6>
             <v-text-field
               outlined
@@ -27,9 +36,21 @@
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
             ></v-text-field>
           </v-flex>
+          <v-flex xs12 md12 xl12 sm12 text-center>
+            <v-date-picker full-width v-model="picker"></v-date-picker>
+          </v-flex>
         </v-layout>
 
         <v-layout row wrap v-if="subPurchase.type == 'item'">
+          <v-flex xs12 md12 sm12 xl12>
+            <v-text-field
+              label="ชื่อโปร / หุ้น"
+              v-model="subPurchase.name"
+              outlined
+              required
+              :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
+            ></v-text-field>
+          </v-flex>
           <v-flex xs12 md5>
             <v-text-field
               outlined
@@ -57,6 +78,9 @@
               :rules="[ v => !!v || 'จำเป็นต้องกรอก']"
             ></v-text-field>
           </v-flex>
+          <v-flex xs12 md12 xl12 sm12 text-center>
+            <v-date-picker full-width v-model="picker"></v-date-picker>
+          </v-flex>
         </v-layout>
       </v-card-text>
       <v-card-actions>
@@ -78,24 +102,28 @@ export default class AddBankAccount extends Vue {
   private show!: boolean;
   private subPurchase: SubPurchase = {
     id: undefined,
+    name: "",
     type: "item",
     deposit: 0,
     reward: 0,
     item: "",
-    itemAmount: "",
+    itemAmount: 0,
     memberId: "",
     purchaseId: "",
     bankAccountId: "",
-    createAt: Date.now()
+    createAt: new Date().toISOString().substr(0, 10)
   };
   private type: string = "เลือก";
+  private picker: any = "";
+
+  mounted() {}
 
   @Emit(`added`)
   private async addSubPurchase() {
     this.subPurchase.memberId = this.memberId;
     this.subPurchase.bankAccountId = this.bankAccountId;
     this.subPurchase.purchaseId = this.purchaseId;
-    this.subPurchase.createAt = Date.now();
+    this.subPurchase.createAt = this.picker;
     await subPurchaseService.create(this.subPurchase);
     this.close();
   }

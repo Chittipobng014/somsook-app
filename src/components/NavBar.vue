@@ -1,7 +1,8 @@
 <template>
   <v-app-bar class="nav" color="amber lighten-1" app>
     <v-toolbar-title class="headline text-uppercase">
-      <span class="black--text text--lighten-1">SOMSOOK APP</span>
+      <span v-if="!memberName" class="black--text text--lighten-1">SOMSOOK APP</span>
+      <span v-if="memberName" class="black--text text--lighten-1">{{memberName}}</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn
@@ -38,6 +39,10 @@ export default class NavBar extends Vue {
   }
 
   private menu: string[] = [`สมาชิก`];
+
+  get memberName() {
+    return this.$store.state.currentMember.name;
+  }
 
   get user() {
     return this.$store.state.currentUser;

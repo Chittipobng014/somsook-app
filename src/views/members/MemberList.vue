@@ -89,6 +89,7 @@ export default class MemberList extends Vue {
 
   async mounted() {
     this.$store.commit(`setLoading`, true);
+    this.$store.commit(`setCurrentMember`, {});
     await this.fetchMembers();
     this.$store.commit(`setLoading`, false);
   }

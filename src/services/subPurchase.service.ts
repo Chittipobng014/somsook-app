@@ -20,7 +20,8 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
-                createAt: doc.data().createAt
+                createAt: doc.data().createAt,
+                name: doc.data().name
             })
         })
         console.log(`Fetch all purchases of bank account id: ${id}`)
@@ -41,7 +42,8 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
-                createAt: doc.data().createAt
+                createAt: doc.data().createAt,
+                name: doc.data().name
             })
         })
         console.log(`Fetch all purchases of member id: ${id}`)
@@ -62,7 +64,8 @@ class SubPurchaseService {
                 item: doc.data().item,
                 itemAmount: doc.data().itemAmount,
                 reward: doc.data().reward,
-                createAt: doc.data().createAt
+                createAt: doc.data().createAt,
+                name: doc.data().name
             })
         })
         console.log(`Fetch all sub purchases of purchase id: ${id}`)

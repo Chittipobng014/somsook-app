@@ -50,6 +50,7 @@
             <tr>
               <th class="table-header">จำนวนเงิน</th>
               <th class="table-header">ผลตอบแทน</th>
+              <th class="table-header">ชื่อโปร / หุ้น</th>
               <th class="table-header">วันที่ชำระเงิน</th>
             </tr>
           </thead>
@@ -57,6 +58,7 @@
             <tr v-for="sp in summary.subPurchases" :key="sp.id">
               <td class="table-text">{{ sp.deposit }}</td>
               <td class="table-text">{{ sp.reward }}</td>
+              <td class="table-text">{{ sp.name }}</td>
               <td class="table-text">{{ sp.createAt }}</td>
             </tr>
           </tbody>
@@ -76,20 +78,7 @@ import { SubPurchase } from "../../models/SubPurchase";
 
 @Component
 export default class MemberSummaryPage extends Vue {
-  private summary: MemberSummary = {
-    member: {
-      id: "",
-      citizenId: "",
-      name: "",
-      phoneNumber: "",
-      createAt: new Date(),
-      address: ""
-    },
-    bankAccounts: [new BankAccount()],
-    purchases: [new Purchase()],
-    subPurchases: [new SubPurchase()]
-  };
-
+  private summary: MemberSummary = new MemberSummary();
   async beforeMount() {
     this.$store.commit(`setLoading`, true);
     await this.fetchSummary();
