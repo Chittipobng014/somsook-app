@@ -37,7 +37,7 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md12 xl12 sm12 text-center>
-            <v-date-picker full-width v-model="picker"></v-date-picker>
+            <v-date-picker locale="th" full-width v-model="picker"></v-date-picker>
           </v-flex>
         </v-layout>
 
@@ -79,7 +79,7 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs12 md12 xl12 sm12 text-center>
-            <v-date-picker full-width v-model="picker"></v-date-picker>
+            <v-date-picker locale="th" full-width v-model="picker"></v-date-picker>
           </v-flex>
         </v-layout>
       </v-card-text>
@@ -129,7 +129,19 @@ export default class AddBankAccount extends Vue {
   }
 
   clear() {
-    this.subPurchase = new SubPurchase();
+    this.subPurchase = {
+      id: undefined,
+      name: "",
+      type: "item",
+      deposit: 0,
+      reward: 0,
+      item: "",
+      itemAmount: 0,
+      memberId: "",
+      purchaseId: "",
+      bankAccountId: "",
+      createAt: new Date().toISOString().substr(0, 10)
+    };
   }
   @Emit(`close`)
   close() {

@@ -82,7 +82,8 @@ class SubPurchaseService {
             purchaseId: subPurchase.purchaseId,
             reward: subPurchase.reward,
             itemAmount: subPurchase.itemAmount,
-            createAt: subPurchase.createAt
+            createAt: subPurchase.createAt,
+            name: subPurchase.name
         })
         console.log(`Create new purchases with data \n\r${JSON.stringify(subPurchase, null, 2)}`)
         return newSubPurchase
@@ -90,7 +91,7 @@ class SubPurchaseService {
 
     async delete(id: string) {
         await subPurchaseCollection.doc(id).delete()
-        console.log(`Delete bank account id ${id}`)
+        console.log(`Delete sub purchase id ${id}`)
     }
 }
 

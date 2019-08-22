@@ -85,6 +85,8 @@ export default class AddMember extends Vue {
 
   private address: string = "";
 
+  private imageUrl: string = "";
+
   private showError: boolean = false;
 
   private prefixs: string[] = [`นาย`, `นาง`, `นางสาว`, `เด็กชาย`, `เด็กหญิง`];
@@ -95,12 +97,13 @@ export default class AddMember extends Vue {
       this.$store.commit(`setLoading`, false);
       this.showError = true;
     } else {
-      this.name = `${this.prefixName}${this.name}`
+      this.name = `${this.prefixName}${this.name}`;
       const member: Member = Member.register(
         this.citizenId,
         this.name,
         this.phoneNumber,
-        this.address
+        this.address,
+        this.imageUrl
       );
       const newMember = await memberService.create(member);
       this.$store.commit(`setLoading`, false);

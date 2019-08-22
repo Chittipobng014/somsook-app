@@ -5,6 +5,12 @@
       @close="showAddSubPurchase = !showAddSubPurchase"
       @added="fetchPurchase(),fetchSubPurchases()"
     />
+    <delete-sub-purchase
+      :subPurchase="selectedDeleteSubPurchase"
+      :show="showDeletePurchase"
+      @close="showDeletePurchase = !showDeletePurchase"
+      @deleted="fetchPurchase(),fetchSubPurchases()"
+    />
     <v-layout row wrap mb-5>
       <v-flex xs12 md12 sm12 xl12 text-center>
         <h1>{{purchase.type}}</h1>
@@ -21,6 +27,7 @@
             <tr>
               <th class="table-header" style="text-align: center">เงินลงทุน</th>
               <th class="table-header" style="text-align: center">ผลตอบแทน</th>
+              <th class="table-header" style="text-align: center">ชื่อโปร / หุ้น</th>
               <th class="table-header" style="text-align: center">วันที่ซื้อ</th>
               <th style="text-align: right">
                 <v-btn color="success" outlined @click="showAddSubPurchase = true">เพิ่มโปร / หุ้น</v-btn>
@@ -31,10 +38,11 @@
             <tr v-for="sp in subPurchases" :key="sp.id">
               <td>{{sp.deposit}}</td>
               <td>{{convertRowText(sp)}}</td>
-              <td>{{dateConvert(sp.createAt)}}</td>
+              <td>{{sp.name}}</td>
+              <td>{{sp.createAt}}</td>
               <td style="text-align: right">
                 <v-btn outlined color="warning" style="margin-right: 5px">แก้ไข</v-btn>
-                <v-btn outlined color="error">ลบ</v-btn>
+                <v-btn outlined color="error" @click="selectDeleteSubPurchase(sp)">ลบ</v-btn>
               </td>
             </tr>
           </tbody>
@@ -46,6 +54,7 @@
 
 <script lang="ts">
 import AddSubPurchase from "../subPurchases/AddSubPurchase.vue";
+import DeleteSubPurchase from "../subPurchases/DeleteSubPurchase.vue";
 import { Vue, Component } from "vue-property-decorator";
 import { Purchase } from "../../models/Purchase";
 import { purchaseService } from "../../services/purchase.service";
@@ -54,13 +63,16 @@ import { subPurchaseService } from "../../services/subPurchase.service";
 
 @Component({
   components: {
-    AddSubPurchase
+    AddSubPurchase,
+    DeleteSubPurchase
   }
 })
 export default class EditPurchase extends Vue {
   private showAddSubPurchase: boolean = false;
+  private showDeletePurchase: boolean = false;
   private purchase: Purchase = new Purchase();
   private subPurchases: SubPurchase[] = [];
+  private selectedDeleteSubPurchase: SubPurchase = new SubPurchase();
 
   private async fetchPurchase() {
     this.purchase = await purchaseService.getById(this.$route.params.id);
@@ -71,6 +83,11 @@ export default class EditPurchase extends Vue {
     this.subPurchases = await subPurchaseService.getByPurchaseId(
       this.$route.params.id
     );
+  }
+
+  private selectDeleteSubPurchase(subPurchase: SubPurchase) {
+    this.selectedDeleteSubPurchase = subPurchase;
+    this.showDeletePurchase = true;
   }
 
   private dateConvert(timestamp) {

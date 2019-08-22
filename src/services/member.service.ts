@@ -17,7 +17,8 @@ class MemberService {
                 createAt: doc.data().createAt,
                 name: doc.data().name,
                 phoneNumber: doc.data().phoneNumber,
-                address: doc.data().address
+                address: doc.data().address,
+                imageUrl: doc.data().imageUrl
             })
         })
         console.log(`Fetch all member`)
@@ -33,8 +34,8 @@ class MemberService {
             createAt: doc.createAt,
             phoneNumber: doc.phoneNumber,
             name: doc.name,
-            address: doc.address
-
+            address: doc.address,
+            imageUrl: doc.imageUrl
         }
         console.log(`Fetch member with id ${id}`)
         return member
@@ -48,7 +49,8 @@ class MemberService {
             createAt: member.createAt,
             phoneNumber: member.phoneNumber,
             name: member.name,
-            address: member.address
+            address: member.address,
+            imageUrl: member.imageUrl
         })
         await idGenerateService.increaseMemberId(currentMemberId)
         console.log(`Created new member with data \n\r${JSON.stringify(member)}`)
@@ -60,7 +62,8 @@ class MemberService {
             createAt: member.createAt,
             phoneNumber: member.phoneNumber,
             name: member.name,
-            address: member.address
+            address: member.address,
+            imageUrl: member.imageUrl
         }).then(doc => {
             console.log(`Updated new member with data \n\r${JSON.stringify(member, null, 2)}`)
         }).catch(err => {

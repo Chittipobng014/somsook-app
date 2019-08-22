@@ -118,7 +118,8 @@ export default class EditMember extends Vue {
     name: "",
     phoneNumber: "",
     createAt: new Date(),
-    address: ""
+    address: "",
+    imageUrl: ""
   };
 
   private bankAccounts: any = null;

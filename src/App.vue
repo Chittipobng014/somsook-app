@@ -25,5 +25,8 @@ export default class App extends Vue {
   get loading() {
     return this.$store.state.loading;
   }
+  created() {
+    this.$store.commit(`setLoading`, false);
+  }
 }
 </script>
